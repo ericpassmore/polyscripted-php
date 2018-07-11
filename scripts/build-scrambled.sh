@@ -6,16 +6,13 @@
 if [[ $1 = "-t" ]]
 then
 	cd tests
-	./remove-expected-out.sh
 	./get-expected-out.sh
 cd ..
 fi
 
 ./scrambler
 
-
-./transformer -f /php/php-src/ext/phar/phar/phar.php -replace=true
-./transformer -f /php/php-src/ext/phar/build_precommand.php -replace=true
+./php-transformer /php/php-src/ext/phar -replace=true
 
 cd php-src
 ./buildconf
