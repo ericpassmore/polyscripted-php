@@ -5,6 +5,6 @@ mkdir /php/expected
 
 for file in *.php
 do
-        /polyscripted-php/bin/php $file > "/php/expected_test_output/${file}"
+        /polyscripted-php/bin/php $file > "/php/expected/${file}"
 done
 

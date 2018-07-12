@@ -12,12 +12,18 @@ fi
 
 ./scrambler
 
-./php-transformer /php/php-src/ext/phar -replace=true
 
 cd php-src
 ./buildconf
 make install -k
 
+./php-transformer -k /php/php-src/ext/phar
+
+cd php-src
+make install -k
+
 cd /polyscripted-php
 find . -type d -empty -delete
 
+cd /php
+./php-transformer tests
