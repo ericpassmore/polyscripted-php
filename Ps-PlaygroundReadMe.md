@@ -4,15 +4,15 @@ From within the Docker container here are the steps to running polyscripted php.
 
 Install standard php configured to support Polyscripting:
 
-``` ./build-php.sh
+``` ./build-php.sh```
 
 Next, to build a scrambled version of php:
 
-```./build-scrambled.sh
+```./build-scrambled.sh```
 
 Or if you want to first generate expected outputs for the .php files in tests:
 
-```./build-scrambled.sh -t
+```./build-scrambled.sh -t```
 
 Note: You can build a newly scrambled version of php at any time with
 the build-scrambled script, but option -t will only generate expected test
@@ -27,16 +27,16 @@ Because php no longer recognizes its standard keywords.
 
 To transform your php file to polyscripted use ./transformer :
 
-``` ./transformer -f [filename]
+``` ./transformer -f [filename]```
 
 Here's an example:
 
-``` ./transformer -f tests/smallWorld.php
+``` ./transformer -f tests/smallWorld.php```
 
 This will generate a new file with an appended ps- to the file name.
 If you'd like to overwrite the original file use the option -replace
 
-# ./transformer -f tests/smallWorld.php -replace=true
+``` ./transformer -f tests/smallWorld.php -replace=true``
 
 To run the newly created file use /polyscripted-php/bin/php where you would
 typically use the php command.
