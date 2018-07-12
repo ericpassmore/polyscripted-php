@@ -1,6 +1,6 @@
 #!/bin/bash
   
-rm -r /php/expected
+rm -rf /php/expected
 mkdir /php/expected
 
 for file in *.php

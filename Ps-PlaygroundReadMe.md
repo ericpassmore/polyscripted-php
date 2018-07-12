@@ -1,4 +1,4 @@
-Welcome to the Polyscripting Playground
+## Welcome to the Polyscripting Playground
 
 From within the Docker container here are the steps to running polyscripted php.
 
@@ -6,49 +6,47 @@ Install standard php configured to support Polyscripting:
 
 ``` ./build-php.sh```
 
+This command also creates a directory /php/expected/ that will hold the expected output (before scrambling) of files within /php/tests
+
 Next, to build a scrambled version of php:
 
 ```./build-scrambled.sh```
 
-Or if you want to first generate expected outputs for the .php files in tests:
-
-```./build-scrambled.sh -t```
-
 Note: You can build a newly scrambled version of php at any time with
-the build-scrambled script, but option -t will only generate expected test
-outputs accurately if you are building from the standard php.
+the build-scrambled script.
 
 Now to the fun stuff.
-Notice that if you try to run a php program, you will be hit with some parse error:
+Notice that if you try to run a php program within the tests directory, you will be hit with some parse error:
 
   Parse error: syntax error, unexpected 'as'
 
 Because php no longer recognizes its standard keywords.
 
-To transform your php file to polyscripted use ./transformer :
+To transform your php files to their polyscripted version use the executable ./php-transformer :
 
-``` ./transformer -f [filename]```
+``` ./php-transformer <path>```
 
 Here's an example:
 
-``` ./transformer -f tests/smallWorld.php```
+``` ./php-transformer /php/evalTest```
 
-This will generate a new file with an appended ps- to the file name.
-If you'd like to overwrite the original file use the option -replace
+This will generate a new directory with an appended -ps to the file name.
+If you'd like to overwrite the original directory use the option -replace
 
-``` ./transformer -f tests/smallWorld.php -replace=true``
+``` ./php-transformer -replace tests/smallWorld.php```
 
-To run the newly created file use /polyscripted-php/bin/php where you would
+To run the newly created files use /polyscripted-php/bin/php where you would
 typically use the php command.
 
-# /polyscripted-php/bin/php tests-ps/smallWorld.php
+```/polyscripted-php/bin/php tests-ps/smallWorld.php```
 
 This will use polyscripted php to interpret your  polyscripted file.
 
 If you ran the -t option when scrambling your build you can see the difference
 in the outputs of using standard php and scrambled php by using the command:
 
-```diff <(/polyscripted-php/bin/php tests-ps/smallWorld.php) expected/smallWorld.php
+```diff <(/polyscripted-php/bin/php tests-ps/smallWorld.php) expected/smallWorld.php```
+
 
 Feel free to try it out with your own php files. 
 There's also a small program with an eval vulnerability in evalTest/evalExploit.php if you're unfamiliar with code injection attacks, then run this with standard php first. Then scramble it up, and see what you can't do.
@@ -60,4 +58,4 @@ the reset-php.sh with the -revert option.
 
 To revert back to standard php use the command:
 
-``` ./resetPhp/reset-php.sh -revert
+``` ./resetPhp/reset-php.sh -revert```
