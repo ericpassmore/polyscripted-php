@@ -17,5 +17,5 @@ cd /polyscripted-php
 find . -type d -empty -delete
 
 cd /php
-./php-transformer tests
-./php-transformer evalTest
+./php-transformer /php/tests
+./php-transformer /php/xtra/evalTest

@@ -18,6 +18,8 @@ the build-scrambled script.
 Now to the fun stuff.
 Notice that if you try to run a php program within the tests directory, you will be hit with some parse error:
 
+ ```/polyscripted-php/bin/php tests/smallWorld.php```
+
   Parse error: syntax error, unexpected 'as'
 
 Because php no longer recognizes its standard keywords.
@@ -28,9 +30,9 @@ To transform your php files to their polyscripted version use the executable ./p
 
 Here's an example:
 
-``` ./php-transformer /php/evalTest```
+``` ./php-transformer /php/xtra/evalTest```
 
-This will generate a new directory with an appended -ps to the file name.
+This will generate a new directory with an appended -ps to the root directory name. All files will be copied to the new directory and it will maintain its structure, with the new scrambled php.
 If you'd like to overwrite the original directory use the option -replace
 
 ``` ./php-transformer -replace tests/smallWorld.php```
@@ -49,7 +51,7 @@ in the outputs of using standard php and scrambled php by using the command:
 
 
 Feel free to try it out with your own php files. 
-There's also a small program with an eval vulnerability in evalTest/evalExploit.php if you're unfamiliar with code injection attacks, then run this with standard php first. Then scramble it up, and see what you can't do.
+There's also a small program with an eval vulnerability in xtra/evalTest/evalExploit.php if you're unfamiliar with code injection attacks, then run this with standard php first. Then scramble it up, and see what you can't do.
 
 Note: You can build a newly scrambled version of php at any time with
 the build-scrambled script, but if you'd like to revert back to standard php

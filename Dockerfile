@@ -31,3 +31,4 @@ COPY --from=0 /go/src/github.com/truestblue/php-transformer/php-transformer /php
 COPY --from=0 /go/src/github.com/polyverse/polyscripting-php/scrambler/scrambler /php/
 WORKDIR /php
 RUN git clone https://github.com/php/php-src.git
+
