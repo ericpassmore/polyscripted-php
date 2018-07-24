@@ -2,7 +2,7 @@
 
 ./resetPhp/reset-php.sh
 
-./scrambler
+./php-scrambler
 sed -i "i3 <?php" /php/php-src/ext/phar/build_precommand.php
 sed -i "i18 ?>" /php/php-src/ext/phar/build_precommand.php
 ./php-transformer -phar -replace /php/php-src/ext/phar
