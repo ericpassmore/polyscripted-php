@@ -27,6 +27,7 @@ make install
 
 cd /php/tests
 ./get-expected-out.sh
+rm get-expected-out.sh
 
 cd /polyscripted-php
 find . -type d -empty -delete

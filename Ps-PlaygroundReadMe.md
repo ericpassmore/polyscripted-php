@@ -32,6 +32,10 @@ Here's an example:
 
 ``` ./php-transformer /php/xtra/evalTest```
 
+To transform all files within the tests folders run 
+
+```./build-tests.sh```
+
 This will generate a new directory with an appended -ps to the root directory name. All files will be copied to the new directory and it will maintain its structure, with the new scrambled php.
 If you'd like to overwrite the original directory use the option -replace
 
@@ -42,7 +46,7 @@ typically use the php command.
 
 ```/polyscripted-php/bin/php tests-ps/smallWorld.php```
 
-This will use polyscripted php to interpret your  polyscripted file.
+This will use polyscripted php to interpret your file.
 
 If you ran the -t option when scrambling your build you can see the difference
 in the outputs of using standard php and scrambled php by using the command:
