@@ -1,12 +1,17 @@
 FROM golang
-WORKDIR /go/src/github.com/polyverse/polyscripting-php
+WORKDIR /go/src/github.com/polyverse/
 COPY . .
-RUN go get -v ./...
-WORKDIR ./scrambler
+RUN git clone https://github.com/polyverse/php-scrambler.git
+WORKDIR ./php-scrambler
+RUN go get -v .
 RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build
-WORKDIR /go/src/github.com/truestblue
-ADD https://api.github.com/repos/truestblue/php-transformer/git/refs/heads/master version.json
-RUN git clone https://github.com/truestblue/php-transformer.git
+ADD https://api.github.com/repos/polyverse/php-scrambler/git/refs/heads/master version.json
+
+WORKDIR /go/src/github.com/polyverse
+ADD https://api.github.com/repos/polyverse/php-transformer/git/refs/heads/master version.json
+
+
+RUN git clone https://github.com/polyverse/php-transformer.git
 WORKDIR ./php-transformer
 RUN go get -v .
 RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build
@@ -27,8 +32,8 @@ RUN apt-get install -y \
       ccache
 
 COPY scripts /php/
-COPY --from=0 /go/src/github.com/truestblue/php-transformer/php-transformer /php/
-COPY --from=0 /go/src/github.com/polyverse/polyscripting-php/scrambler/scrambler /php/
+COPY --from=0 /go/src/github.com/polyverse/php-transformer/php-transformer /php/
+COPY --from=0 /go/src/github.com/polyverse/php-scrambler/php-scrambler /php/
 WORKDIR /php
 RUN git clone https://github.com/php/php-src.git
 
