@@ -53,7 +53,7 @@ in the outputs of using standard php and scrambled php by using the command:
 
 ```diff <(/polyscripted-php/bin/php tests-ps/smallWorld.php) expected/smallWorld.php```
 
-Included within the xtra folder is a script that will run the above command on all files within the test-ps directory
+Included within the test folder is a script that will run the above command on all files within the test-ps directory
 and it will compare them with their counter part within the expected directory.
 
 
