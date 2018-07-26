@@ -53,6 +53,10 @@ in the outputs of using standard php and scrambled php by using the command:
 
 ```diff <(/polyscripted-php/bin/php tests-ps/smallWorld.php) expected/smallWorld.php```
 
+Included within the xtra folder is a script that will run the above command on all files within the test-ps directory
+and it will compare them with their counter part within the expected directory.
+
+
 
 Feel free to try it out with your own php files. 
 There's also a small program with an eval vulnerability in xtra/evalTest/evalExploit.php if you're unfamiliar with code injection attacks, then run this with standard php first. Then scramble it up, and see what you can't do.
