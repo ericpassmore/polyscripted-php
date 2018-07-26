@@ -35,20 +35,10 @@ EOT;
 <?php
 const ONE = 1;
 
-class foo {
+class foo1 {
     // As of PHP 5.6.0
     const TWO = ONE * 2;
     const THREE = ONE + self::TWO;
     const SENTENCE = 'The value of THREE is '.self::THREE;
 }
-?>
-
-<?php
-class Foo {
-    // As of PHP 7.1.0
-    public const BAR = 'bar';
-    private const BAZ = 'baz';
-}
-echo Foo::BAR, PHP_EOL;
-echo Foo::BAZ, PHP_EOL;
 ?>

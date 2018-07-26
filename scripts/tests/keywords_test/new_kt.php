@@ -1,7 +1,33 @@
 <?php
-$instance = new SimpleClass();
+class A
+{
+    function foo()
+    {
+        if (isset($this)) {
+            echo '$this is defined (';
+            echo get_class($this);
+            echo ")\n";
+        } else {
+            echo "\$this is not defined.\n";
+        }
+    }
+}
 
-// This can also be done with a variable:
-$className = 'SimpleClass';
-$instance = new $className(); // new SimpleClass()
+class B
+{
+    function bar()
+    {
+        A::foo();
+    }
+}
+
+$a = new A();
+$a->foo();
+
+A::foo();
+
+$b = new B();
+$b->bar();
+
+B::bar();
 ?>
