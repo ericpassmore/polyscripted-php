@@ -1,6 +1,12 @@
 #!/bin/bash
+  
+rm -rf /php/expected
+mkdir /php/expected
 
-for file in *.php
+find /php/tests -name '*.php' -type f | while read file
 do
-	/polyscripted-php/bin/php $file > "expected_${file}"
+        base=$(basename $file)
+        /polyscripted-php/bin/php $file > "/php/expected/$base"
 done
+
+

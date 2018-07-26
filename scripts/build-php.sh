@@ -1,12 +1,10 @@
 #!/bin/bash
 
-cd tests/
-./remove-expected-out.sh
-
+cp -r /php/php-src/ext/phar /php/resetPhp
   
 echo "You can specify a git ref to build from my passing a parameter."
 
-cd ../php-src
+cd ./php-src
 git pull
 
 if [[ "$1" != "" ]]; then
@@ -26,6 +24,10 @@ yes | cp configure.polyscripted configure
   --prefix=/polyscripted-php
 
 make install
+
+cd /php/tests
+./get-expected-out.sh
+rm get-expected-out.sh
 
 cd /polyscripted-php
 find . -type d -empty -delete
