@@ -24,8 +24,7 @@ yes | cp configure.polyscripted configure
   --prefix=/polyscripted-php \
   --with-apxs2 \
   --with-pdo-mysql \
-  --with-mysqli \
-  --with-gd
+  --with-mysqli 
 
 make install
 
