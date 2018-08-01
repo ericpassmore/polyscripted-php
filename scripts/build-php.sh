@@ -21,8 +21,7 @@ yes | cp configure.polyscripted configure
 ./configure \
   --without-pear \
   --exec-prefix=/polyscripted-php \
-  --prefix=/polyscripted-php \
-  --with-apxs2
+  --prefix=/polyscripted-php 
 
 make install
 
