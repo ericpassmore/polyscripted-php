@@ -22,7 +22,9 @@ yes | cp configure.polyscripted configure
   --without-pear \
   --exec-prefix=/polyscripted-php \
   --prefix=/polyscripted-php \
-  --with-apxs2
+  --with-apxs2 \
+  --with-pdo-mysql \
+  --with-mysqli
 
 make install
 
