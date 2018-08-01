@@ -29,7 +29,8 @@ RUN apt-get install -y \
       bison \
       libxml2-dev \
       vim \
-      ccache
+      ccache \
+      apache2-dev 
 
 COPY scripts /php/
 COPY --from=0 /go/src/github.com/polyverse/php-transformer/php-transformer /php/
