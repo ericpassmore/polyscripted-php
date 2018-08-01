@@ -16,7 +16,8 @@ WORKDIR ./php-transformer
 RUN go get -v .
 RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build
 
-FROM polyverse/polymorphic-ubuntu-base
+
+FROM ubuntu
 
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y \
