@@ -33,6 +33,8 @@ RUN apt-get install -y \
       apache2 \
       apache2-dev 
 
+RUN a2dismod mpm_event && a2enmod mpm_prefork
+
 COPY scripts /php/
 COPY --from=0 /go/src/github.com/polyverse/php-transformer/php-transformer /php/
 COPY --from=0 /go/src/github.com/polyverse/php-scrambler/php-scrambler /php/
