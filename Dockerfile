@@ -30,6 +30,7 @@ RUN apt-get install -y \
       libxml2-dev \
       vim \
       ccache \
+      apache2 \
       apache2-dev 
 
 COPY scripts /php/
