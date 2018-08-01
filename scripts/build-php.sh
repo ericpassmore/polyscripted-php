@@ -22,8 +22,7 @@ yes | cp configure.polyscripted configure
   --without-pear \
   --exec-prefix=/polyscripted-php \
   --prefix=/polyscripted-php \
-  --with-apxs2 \
-  --enable-maintainer-zts  
+  --with-apxs2
 
 make install
 
