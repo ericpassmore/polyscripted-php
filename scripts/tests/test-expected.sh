@@ -1,6 +1,6 @@
 #!/bin/bash
   
-find /php/tests-ps -name '*.php' -type f | while read file
+find /php/tests_ps -name '*.php' -type f | while read file
 do
         echo TEST $file
         base=$(basename $file)

@@ -34,3 +34,5 @@ rm get-expected-out.sh
 
 cd /polyscripted-php
 find . -type d -empty -delete
+
+cp /polyscripted-php/bin/php /php/php

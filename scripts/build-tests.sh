@@ -1,3 +1,3 @@
 cd /php
-./php-transformer /php/tests
-./php-transformer /php/xtra/evalTest
+/php/php tok-php-transformer.php -p /php/tests
+/php/php tok-php-transformer.php -p /php/xtra/evalTest
