@@ -26,11 +26,11 @@ Because php no longer recognizes its standard keywords.
 
 To transform your php files to their polyscripted version use the executable ./php-transformer :
 
-``` ./php-transformer <path>```
+``` /php/php tok-php-transformer.php <path>```
 
 Here's an example:
 
-``` ./php-transformer /php/xtra/evalTest```
+``` /php/php tok-php-transformer.php /php/xtra/evalTest```
 
 To transform all files within the tests folders run 
 
