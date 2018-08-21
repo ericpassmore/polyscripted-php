@@ -32,11 +32,12 @@ Because php no longer recognizes its standard keywords.
 
 To transform your php files to their polyscripted version run the php file with original php: tok-php-transformer.php :
 
-``` /php/php tok-php-transformer.php -p [PATH]```
+``` /php/php tok-php-transformer.php <path>```
 
 Here's an example:
 
-``` /php/php tok-php-transformer.php -p php/tests/```
+``` /php/php tok-php-transformer.php /php/xtra/evalTest```
+
 
 To transform all files within the tests folders run 
 
