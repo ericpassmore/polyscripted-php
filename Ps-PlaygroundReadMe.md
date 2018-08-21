@@ -1,8 +1,8 @@
 # Docker Contianers
 
-```docker run -it polyverse/polyscripted-php-built```
+```docker run -it polyverse/polyscripted-php-built bash```
 
-```docker run -it polyverse/polyscripted-php```
+```docker run -it polyverse/polyscripted-php bash```
 
 ## Welcome to the Polyscripting Playground
 
