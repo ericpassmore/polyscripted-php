@@ -27,5 +27,5 @@ After a PHP proof of concept is robust and resiliant, we will begin looking at h
 
 
 #### Other Goals
--Fix php-src compile time issues 
--Pass .phpt within php-src test
+- Fix php-src compile time issues 
+- Pass .phpt within php-src test
