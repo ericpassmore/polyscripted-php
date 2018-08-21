@@ -1,6 +1,6 @@
 # polyscripted-php
 
-For a demo of a polyscripted web-server go to: https://github.com/polyverse/dvwa
+For a demo of a polyscripted website go to: https://github.com/polyverse/dvwa
 
 Polyscripting is a cybesecurity security technique used to stop code injection attacks. It is based on Moving Target Defense approaches (see http://web.mit.edu/br26972/www/pubs/mt_survey.pdf ) which work by increasing the costs for adversaries to successfully attack a system.
 
