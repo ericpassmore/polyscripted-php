@@ -7,7 +7,7 @@ This document has the potential to grow and evolve as we shift priorities and re
 Scrambler hereby refers to the process of changing the C source code for the interpreter.
 Transfromer hereby refers to the process of changing a php document to be able to be interpreted by the scrambled php interpreted.
 
-## WORDPRESS
+## WordPress
 Current project 8/20/18: 
 Applying Polyscripting to WordPress to demonstrate the protection against the risks of the recently announced and unfixed php vulnerablitiy:
 https://www.bleepingcomputer.com/news/security/php-deserialization-issue-left-unfixed-in-wordpress-cms/
