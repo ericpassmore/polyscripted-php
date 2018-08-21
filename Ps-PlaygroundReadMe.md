@@ -1,8 +1,14 @@
+# Docker Contianers
+
+```docker run -it polyverse/polyscripted-php-built```
+
+```docker run -it polyverse/polyscripted-php```
+
 ## Welcome to the Polyscripting Playground
 
 From within the Docker container here are the steps to running polyscripted php.
 
-Install standard php configured to support Polyscripting:
+Install standard php configured to support Polyscripting (Note: This step is unnecessary within the polyscripted-php-built container):
 
 ``` ./build-php.sh```
 
@@ -24,22 +30,22 @@ Notice that if you try to run a php program within the tests directory, you will
 
 Because php no longer recognizes its standard keywords.
 
-To transform your php files to their polyscripted version use the executable ./php-transformer :
+To transform your php files to their polyscripted version run the php file with original php: tok-php-transformer.php :
 
-``` ./php-transformer <path>```
+``` /php/php tok-php-transformer.php -p [PATH]```
 
 Here's an example:
 
-``` ./php-transformer /php/xtra/evalTest```
+``` /php/php tok-php-transformer.php -p php/tests/```
 
 To transform all files within the tests folders run 
 
 ```./build-tests.sh```
 
 This will generate a new directory with an appended -ps to the root directory name. All files will be copied to the new directory and it will maintain its structure, with the new scrambled php.
-If you'd like to overwrite the original directory use the option -replace
+If you'd like to overwrite the original directory use the option --replace
 
-``` ./php-transformer -replace tests/smallWorld.php```
+``` /php/php tok-php-transformer.php -p php/tests/ --replace```
 
 To run the newly created files use /polyscripted-php/bin/php where you would
 typically use the php command.
@@ -48,15 +54,8 @@ typically use the php command.
 
 This will use polyscripted php to interpret your file.
 
-If you ran the -t option when scrambling your build you can see the difference
-in the outputs of using standard php and scrambled php by using the command:
-
-```diff <(/polyscripted-php/bin/php tests-ps/smallWorld.php) expected/smallWorld.php```
-
-Included within the test folder is a script that will run the above command on all files within the test-ps directory
-and it will compare them with their counter part within the expected directory.
-
-
+Included within the test folder is a script that will run the a difference command on all files within the test-ps directory
+and it will compare them with their counter-part within the expected directory.
 
 Feel free to try it out with your own php files. 
 There's also a small program with an eval vulnerability in xtra/evalTest/evalExploit.php if you're unfamiliar with code injection attacks, then run this with standard php first. Then scramble it up, and see what you can't do.
