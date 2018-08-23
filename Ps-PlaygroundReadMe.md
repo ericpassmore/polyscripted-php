@@ -36,26 +36,26 @@ To transform your php files to their polyscripted version run the php file with 
 
 Here's an example:
 
-``` /php/php tok-php-transformer.php /php/xtra/evalTest```
+``` /php/php tok-php-transformer.php -p /php/xtra/evalTest```
 
 
 To transform all files within the tests folders run 
 
 ```./build-tests.sh```
 
-This will generate a new directory with an appended -ps to the root directory name. All files will be copied to the new directory and it will maintain its structure, with the new scrambled php.
+This will generate a new directory with an appended _ps to the root directory name. All files will be copied to the new directory and it will maintain its structure, with the new scrambled php.
 If you'd like to overwrite the original directory use the option --replace
 
-``` /php/php tok-php-transformer.php -p php/tests/ --replace```
+``` /php/php tok-php-transformer.php -p php/tests --replace```
 
 To run the newly created files use /polyscripted-php/bin/php where you would
 typically use the php command.
 
-```/polyscripted-php/bin/php tests-ps/smallWorld.php```
+```/polyscripted-php/bin/php tests_ps/smallWorld.php```
 
 This will use polyscripted php to interpret your file.
 
-Included within the test folder is a script that will run the a difference command on all files within the test-ps directory
+Included within the test folder is a script that will run the a difference command on all files within the test_ps directory
 and it will compare them with their counter-part within the expected directory.
 
 Feel free to try it out with your own php files. 
