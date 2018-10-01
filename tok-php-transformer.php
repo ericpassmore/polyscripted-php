@@ -1,88 +1,105 @@
 <?php
 
-$ignore = array(T_STRING, T_INLINE_HTML, T_CONSTANT_ENCAPSED_STRING, T_START_HEREDOC, T_END_HEREDOC, T_COMMENT);
+include 'snip-transform.php';
+const LONG_OPTS = array("replace", "test", "dump");
 
-$valid_ext = array("php");
+set_error_handler("error_handle", E_USER_ERROR);
 
-$long_opts = array("replace", "test");
-
-$opts = getopt("p:", $long_opts);
-$mode_replace = array_key_exists("replace", $opts);
-if (array_key_exists("test", $opts)) { array_push($valid_ext, "phpt"); }
-if (array_key_exists("phar", $opts)) { array_push($valid_ext, "inc"); }
-$root_dir = $opts[p];
-
-$out_dir = get_out_root($root_dir);
-$dic_json = json_decode(file_get_contents("scrambled.json"), TRUE);
+$replace = false;
+$dump = false;
+$extensions = array("php");
+$root_path = "";
+$out_path = "";
+$num_ps = 0;
 
 
-
-$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root_dir, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
-echo "Polyscript from dir " . $root_dir . " to dir:" . $out_dir, PHP_EOL;
+arg_parse(getopt("p:", LONG_OPTS));
 
 
-foreach ($iterator as $fileInfo) {
-    $fileOut = str_replace($root_dir, $out_dir, $fileInfo);
-    if (in_array(pathinfo($fileInfo, PATHINFO_EXTENSION), $valid_ext)) {
-        polyscriptify($fileInfo, $fileOut);
-    } else if ($fileInfo->isDir() && !$mode_replace) {
-        mkdir($fileOut);
-    } else if (!$mode_replace) {
-        copy($fileInfo, $fileOut);
+echo "Polyscript from dir " . $root_path . " to dir:" . $out_path, PHP_EOL;
+
+if (!is_dir($out_path))
+{
+    polyscriptify($root_path, $out_path);
+    return;
+} else {
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root_path, FilesystemIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::SELF_FIRST);
+
+    foreach ($iterator as $fileInfo) {
+        $fileOut = str_replace($root_path, $out_path, $fileInfo);
+        if (in_array(pathinfo($fileInfo, PATHINFO_EXTENSION), $extensions)) {
+            if ($dump) {
+                echo "Polyscripting $fileInfo \n";
+            }
+            polyscriptify($fileInfo, $fileOut);
+            $num_ps++;
+        } else if (is_dir($fileOut)) {
+            continue;
+        } else if ($fileInfo->isDir() && !$replace) {
+            mkdir($fileOut);
+        } else if (!$replace) {
+            copy($fileInfo, $fileOut);
+        }
     }
 }
 
+echo "Done. Polyscripted " . $num_ps . " files\n";
+
+function arg_parse($opts)
+{
+    global $dump, $root_path, $out_path, $replace;
+
+    if ($opts['p']==NULL) {
+        trigger_error("Missing required argument: '-p'", E_USER_ERROR);
+    }
+
+    //Parse
+    $replace = array_key_exists("replace", $opts);
+    $dump = array_key_exists("dump", $opts);
+    get_ext($opts);
+
+    //Path handle
+    $root_path = rtrim($opts['p'], '/');
+
+    if (file_exists($root_path)) {
+        $out_path = $replace ? $root_path : get_out_root($root_path);
+    } else {
+        trigger_error("Invalid path or file.", E_USER_ERROR);
+    }
+}
 
 function get_out_root($root)
 {
-    global $mode_replace;
-    $path = pathinfo($root, PATHINFO_DIRNAME);
-    $base = pathinfo($root, PATHINFO_FILENAME);
-    $ext = pathinfo($root, PATHINFO_EXTENSION);
-    if ($mode_replace) {
-        return $root;
-    } else if (is_dir($root)) {
-        $out = $path . "/" . $base . "_ps";
-        delTree($out);  //This is dangerous and needs checking.
-        mkdir($out);
-        return $path . "/" . $base . "_ps";
+    $path_out = pathinfo($root, PATHINFO_DIRNAME) . "/" . pathinfo($root, PATHINFO_FILENAME) . "_ps";
+
+    if (is_dir($root)) {
+        if (!is_dir($path_out)) {
+            mkdir($path_out);
+        }
+        return $path_out;
     } else {
-        return $path . "/" . $base . "_ps" . "." . $ext;
+        return $path_out . "." . pathinfo($root, PATHINFO_EXTENSION);
     }
 }
 
+function get_ext($opts)
+{
+    global $extensions;
+    if (array_key_exists("test", $opts)) { array_push($extensions, "phpt"); }
+    if (array_key_exists("phar", $opts)) { array_push($extensions, "inc"); }
+}
 
 function polyscriptify($file_name, $fileOut)
 {
-
-    global $ignore, $dic_json;
-    $tokens = token_get_all(file_get_contents($file_name));
-
+    $file_str = token_get_all(file_get_contents($file_name));
     $fp = fopen($fileOut, 'w');
-
-    foreach ($tokens as $token) {
-        if (is_array($token)) {
-            if (in_array($token[0], $ignore) || is_null($dic_json[$token[1]])) {
-                $out = $token[1];
-            } else {
-                $out = $dic_json[$token[1]];
-            }
-
-        } else {
-            $out = $token;
-        }
-        fwrite($fp, $out);
-    }
+    fwrite($fp, poly_snip($file_str));
     fclose($fp);
 }
 
-function delTree($dir)
-{
-    if (is_dir($dir)) {
-        $files = array_diff(scandir($dir), array('.', '..'));
-        foreach ($files as $file) {
-            (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
-        }
-        return rmdir($dir);
-    }
+function error_handle($errno, $errstr) {
+    echo "Error: [$errno] $errstr\n";
+    echo "Failing.";
+    die();
 }
