@@ -9,25 +9,31 @@ $replace = false;
 $dump = false;
 $extensions = array("php");
 $root_path = "";
-$out_path = "";
+$out = "";
 $num_ps = 0;
+$is_snip = false;
 
 
-arg_parse(getopt("p:", LONG_OPTS));
+arg_parse(getopt("s:p:", LONG_OPTS));
+
+if ($is_snip) {
+    echo poly_snip($out);
+    return;
+}
 
 
-echo "Polyscript from dir " . $root_path . " to dir:" . $out_path, PHP_EOL;
+echo "Polyscript from dir " . $root_path . " to dir:" . $out, PHP_EOL;
 
-if (!is_dir($out_path))
+if (!is_dir($out))
 {
-    polyscriptify($root_path, $out_path);
+    polyscriptify($root_path, $out);
     return;
 } else {
     $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root_path, FilesystemIterator::SKIP_DOTS),
         RecursiveIteratorIterator::SELF_FIRST);
 
     foreach ($iterator as $fileInfo) {
-        $fileOut = str_replace($root_path, $out_path, $fileInfo);
+        $fileOut = str_replace($root_path, $out, $fileInfo);
         if (in_array(pathinfo($fileInfo, PATHINFO_EXTENSION), $extensions)) {
             if ($dump) {
                 echo "Polyscripting $fileInfo \n";
@@ -48,7 +54,17 @@ echo "Done. Polyscripted " . $num_ps . " files\n";
 
 function arg_parse($opts)
 {
-    global $dump, $root_path, $out_path, $replace;
+    global $dump, $root_path, $out, $replace, $is_snip;
+
+    if ($opts['s'] != NULL && $opts['p']!=NULL) {
+        trigger_error("Cannot polyscript both path and snip.", E_USER_ERROR);
+    }
+
+    if ($opts['s'] != NULL) {
+        $is_snip = true;
+        $out = $opts['s'];
+        return;
+    }
 
     if ($opts['p']==NULL) {
         trigger_error("Missing required argument: '-p'", E_USER_ERROR);
@@ -63,7 +79,7 @@ function arg_parse($opts)
     $root_path = rtrim($opts['p'], '/');
 
     if (file_exists($root_path)) {
-        $out_path = $replace ? $root_path : get_out_root($root_path);
+        $out = $replace ? $root_path : get_out_root($root_path);
     } else {
         trigger_error("Invalid path or file.", E_USER_ERROR);
     }
@@ -92,7 +108,7 @@ function get_ext($opts)
 
 function polyscriptify($file_name, $fileOut)
 {
-    $file_str = token_get_all(file_get_contents($file_name));
+    $file_str = file_get_contents($file_name);
     $fp = fopen($fileOut, 'w');
     fwrite($fp, poly_snip($file_str));
     fclose($fp);

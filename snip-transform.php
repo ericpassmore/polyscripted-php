@@ -40,7 +40,7 @@ function get_tok_val($token)
     }
 
 
-    if (in_array($token[0], IGNORE) || !isset($keys_ps_map[$tok_str])) {
+    if (in_array($token[0], IGNORE) || !isset ($keys_ps_map[$tok_str])) {
         return $token[1];
     } else if ($cast) {
         return "(" . $keys_ps_map[$tok_str] . ")" ;
