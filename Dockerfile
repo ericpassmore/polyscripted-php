@@ -28,9 +28,10 @@ RUN apt-get install -y \
 RUN a2dismod mpm_event && a2enmod mpm_prefork
 
 COPY scripts /php/
-COPY tok-php-transformer.php /php/
-COPY snip-transform.php /php/
 COPY --from=0 /go/src/github.com/polyverse/php-scrambler/php-scrambler /php/
+COPY --from=0 /go/src/github.com/polyverse/tok-php-transformer/tok-php-transformer.php /php/
+COPY --from=0 /go/src/github.com/polyverse/tok-php-transformer/snip-transform.php /php/
+
 
 WORKDIR /php
 RUN git clone https://github.com/polyverse/php-src

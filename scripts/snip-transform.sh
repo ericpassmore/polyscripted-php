@@ -1,11 +1,9 @@
 #!/bin/bash
-  
-echo $SNIP;
 
-if [ -f /php/scrambled.json ]; then
-        /php/php tok-php-transformer.php -s $SNIP
+if [ -f /php/scrambled.json ]; then     
+	out="$(/php/php /php/tok-php-transformer.php -s "$SNIP")"
+	echo "$out"
 else
-        echo $SNIP
+        echo "$SNIP"
 fi
 
-unset $SNIP
