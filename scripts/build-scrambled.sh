@@ -1,16 +1,20 @@
 #!/bin/bash
 
-./resetPhp/reset-php.sh
-
 ./php-scrambler
 
-/php/php tok-php-transformer.php -p /php/php-src/ext/phar --replace --inc --phar
+/php/php tok-php-transformer.php -p "$PHP_SRC_PATH"ext/phar --replace --inc --phar
 
-cd php-src
+cd $PHP_SRC_PATH
 make install -k
 
 cd ..
-/php/php tok-php-transformer.php -p /php/php-src/ext/phar --replace
+/php/php tok-php-transformer.php -p "$PHP_SRC_PATH"ext/phar --replace
 
-cd php-src
+cd $PHP_SRC_PATH
+make install -k
+
+cd ..
+/php/php tok-php-transformer.php -p "$PHP_SRC_PATH"ext/phar/phar.php --replace
+
+cd $PHP_SRC_PATH
 make install
