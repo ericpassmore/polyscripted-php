@@ -21,7 +21,8 @@ RUN apt-get install -y \
       autoconf \
       gcc \
       re2c \
-      bison \
+      libsqlite3-dev \
+	bison \
       libxml2-dev \
       vim \
       ccache \
@@ -37,5 +38,5 @@ COPY --from=0 /go/src/github.com/polyverse/tok-php-transformer/snip-transform.ph
 
 
 WORKDIR /php
-RUN git clone https://github.com/polyverse/php-src
+RUN git clone https://github.com/php/php-src.git
 ENV PHP_SRC_PATH /php/php-src/
