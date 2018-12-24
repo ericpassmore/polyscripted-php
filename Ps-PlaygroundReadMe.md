@@ -1,6 +1,4 @@
-# Docker Contianers
-
-```docker run -it polyverse/polyscripted-php-built bash```
+# Docker Contianer
 
 ```docker run -it polyverse/polyscripted-php bash```
 
@@ -8,31 +6,21 @@
 
 From within the Docker container here are the steps to running polyscripted php.
 
-Install standard php configured to support Polyscripting (Note: This step is unnecessary within the polyscripted-php-built container):
-
-``` ./build-php.sh```
-
-This command also creates a directory /php/expected/ that will hold the expected output (before scrambling) of files within /php/tests
-
-Next, to build a scrambled version of php:
-
-```./build-scrambled.sh```
-
-Note: You can build a newly scrambled version of php at any time with
-the build-scrambled script.
+``` $POLYCRIPT_PATH/build-scrambled.php``
 
 Now to the fun stuff.
 Notice that if you try to run a php program within the tests directory, you will be hit with some parse error:
 
- ```/polyscripted-php/bin/php tests/smallWorld.php```
+ ```php tests/smallWorld.php```
 
   Parse error: syntax error, unexpected 'as'
 
 Because php no longer recognizes its standard keywords.
 
+NOTE: Vanilla php still exists as s_php (this should be removed if pushing to prod, after the transformation command)
 To transform your php files to their polyscripted version run the php file with original php: tok-php-transformer.php :
 
-``` /php/php tok-php-transformer.php <path>```
+``` s_php tok-php-transformer.php <path>```
 
 Here's an example:
 
@@ -46,12 +34,12 @@ To transform all files within the tests folders run
 This will generate a new directory with an appended _ps to the root directory name. All files will be copied to the new directory and it will maintain its structure, with the new scrambled php.
 If you'd like to overwrite the original directory use the option --replace
 
-``` /php/php tok-php-transformer.php -p php/tests --replace```
+``` s_php tok-php-transformer.php -p php/tests --replace```
 
 To run the newly created files use /polyscripted-php/bin/php where you would
 typically use the php command.
 
-```/polyscripted-php/bin/php tests_ps/smallWorld.php```
+```php tests_ps/smallWorld.php```
 
 This will use polyscripted php to interpret your file.
 
