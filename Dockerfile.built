@@ -1,4 +1,0 @@
-FROM polyverse/polyscripted-php
-
-RUN ./build-php.sh
-
