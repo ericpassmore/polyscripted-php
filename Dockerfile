@@ -24,7 +24,7 @@ COPY scripts /usr/local/bin/polyscripting/
 
 WORKDIR /usr/local/bin/polyscripting/
 
-ENV POLYSCRIPT_PATH /usr/local/bin/polyscripting/
+ENV POLYSCRIPT_PATH /usr/local/bin/polyscripting
 ENV PHP_SRC_PATH $PHP_SRC_PATH
 
-RUN cp /usr/local/bin/php /usr/local/bin/s_php
+RUN $POLYSCRIPT_PATH/util/ps-config.sh
