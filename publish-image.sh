@@ -1,6 +1,6 @@
 #!/bin/sh
 
-image="polyverse/polyscripted-php-built"
+image="polyverse/polyscripted-php-built-dev"
 
 echo "$(date) Obtaining current git sha for tagging the docker image"
 headsha=$(git rev-parse --verify HEAD)
