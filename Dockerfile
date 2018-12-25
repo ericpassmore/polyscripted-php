@@ -1,4 +1,4 @@
-FROM polyverse/ps-php7.2-apache:38bbbb695b9563e874eb0b5b8561e74d5111327d 
+FROM polyverse/ps-php7.2-apache:ec5815fd86dfcf6941548d1a7187ddcd5e9070bc
 
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y \
@@ -22,6 +22,9 @@ RUN make install
 
 COPY scripts /usr/local/bin/polyscripting/
 
-ENV PHP_SRC_PATH /usr/src/php
+WORKDIR /usr/local/bin/polyscripting/
 
-ENTRYPOINT /usr/local/bin/polyscripting/
+ENV POLYSCRIPT_PATH /usr/local/bin/polyscripting/
+ENV PHP_SRC_PATH $PHP_SRC_PATH
+
+RUN cp /usr/local/bin/php /usr/local/bin/s_php
