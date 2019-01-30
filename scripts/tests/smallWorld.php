@@ -19,6 +19,5 @@ $name = 'php';
 $optimist = 'impossible';
 $str = 'Polyscripting makes exploiting $vulnerability in $name pretty much $optimist.';
 echo $str. "\n";
-eval("\$str = \"$str\";");
 echo $str. "\n";
 ?>
