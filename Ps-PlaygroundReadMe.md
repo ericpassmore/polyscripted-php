@@ -6,7 +6,7 @@
 
 From within the Docker container here are the steps to running polyscripted php.
 
-``` $POLYCRIPT_PATH/build-scrambled.php``
+``` $POLYCRIPT_PATH/build-scrambled.php```
 
 Now to the fun stuff.
 Notice that if you try to run a php program within the tests directory, you will be hit with some parse error:
