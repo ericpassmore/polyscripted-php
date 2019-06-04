@@ -1,12 +1,12 @@
 #!/bin/bash
   
-rm -rf /php/expected
-mkdir /php/expected
+rm -rf $POLYSCRIPT_PATH/expected
+mkdir $POLYSCRIPT_PATH/expected
 
-find /php/tests -name '*.php' -type f | while read file
+find $POLYSCRIPT_PATH/tests -name '*.php' -type f | while read file
 do
         base=$(basename $file)
-        /polyscripted-php/bin/php $file > "/php/expected/$base"
+	php $file > "$POLYSCRIPT_PATH/expected/$base"
 done
 
 
