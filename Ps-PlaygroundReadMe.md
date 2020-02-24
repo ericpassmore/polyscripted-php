@@ -6,14 +6,14 @@
 
 From within the Docker container here are the steps to running polyscripted php.
 
-``` $POLYCRIPT_PATH/build-scrambled.php```
+``` $POLYCRIPT_PATH/build-scrambled.sh```
 
 Now to the fun stuff.
 Notice that if you try to run a php program within the tests directory, you will be hit with some parse error:
 
  ```php tests/smallWorld.php```
 
-  Parse error: syntax error, unexpected 'as'
+  Parse error: syntax error, unexpected
 
 Because php no longer recognizes its standard keywords.
 
